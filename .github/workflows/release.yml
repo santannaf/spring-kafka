@@ -1,6 +1,12 @@
 name: Release to Maven Central
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 1.0.0)'
+        required: true
+        type: string
   push:
     tags:
       - 'v*'
@@ -24,9 +30,14 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-      - name: Set release version from tag
+      - name: Set release version
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          if [ -n "${{ inputs.version }}" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
           ./mvnw versions:set -DnewVersion="$VERSION" -DprocessAllModules=true -q
 
       - name: Build and run tests
@@ -39,8 +50,15 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
+      - name: Create git tag (manual dispatch only)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git tag "v${{ env.RELEASE_VERSION }}"
+          git push origin "v${{ env.RELEASE_VERSION }}"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ env.RELEASE_VERSION }}
           generate_release_notes: true
           files: kafka/target/kafka-*.jar
