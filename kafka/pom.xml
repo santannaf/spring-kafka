@@ -12,6 +12,32 @@
   <artifactId>kafka</artifactId>
   <packaging>jar</packaging>
 
+  <name>Tuned Kafka Library</name>
+  <description>Opinionated Spring Boot auto-configuration for Apache Kafka with Avro, Schema Registry, SSL/TLS, and observability.</description>
+  <url>https://github.com/santannaf/spring-kafka</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>santannaf</id>
+      <name>Felipe Santanna</name>
+      <url>https://github.com/santannaf</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/santannaf/spring-kafka.git</connection>
+    <developerConnection>scm:git:ssh://github.com:santannaf/spring-kafka.git</developerConnection>
+    <url>https://github.com/santannaf/spring-kafka</url>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
