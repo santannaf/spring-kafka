@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.santannaf.kafka.autoconfigure.TunedKafkaAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=io.github.santannaf.kafka.autoconfigure.TunedEnvironmentPostProcessor

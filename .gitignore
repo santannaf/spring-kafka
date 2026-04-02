@@ -1,0 +1,33 @@
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Maven wrapper jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Environment / secrets
+.env
+*.jks
+
+# Keystores
+*.p12
+
+# Generated certificates
+certs/
+
+# Claude Code
+CLAUDE.md
+.claude/
+
+# GPG key generation script (contains passphrase)
+generate-gpg-key.sh
+
+# Logs
+*.log
