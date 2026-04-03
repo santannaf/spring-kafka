@@ -1,0 +1,2 @@
+org.springframework.aot.hint.RuntimeHintsRegistrar=io.github.santannaf.kafka.aot.KafkaLibraryRuntimeHints
+org.springframework.beans.factory.aot.BeanFactoryInitializationAotProcessor=io.github.santannaf.kafka.aot.KafkaSslAotProcessor

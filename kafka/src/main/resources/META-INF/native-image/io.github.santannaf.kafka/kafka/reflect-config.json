@@ -1,0 +1,237 @@
+[
+  {
+    "name": "org.apache.kafka.common.serialization.StringSerializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.apache.kafka.common.serialization.StringDeserializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.KafkaAvroSerializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.KafkaAvroDeserializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.apache.kafka.clients.producer.RoundRobinPartitioner",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.context.NullContextNameStrategy",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.context.strategy.ContextNameStrategy",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.subject.TopicNameStrategy",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.subject.TopicRecordNameStrategy",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.subject.RecordNameStrategy",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.subject.strategy.SubjectNameStrategy",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.schema.id.PrefixSchemaIdSerializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.schema.id.DualSchemaIdDeserializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.schema.id.SchemaIdSerializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.serializers.schema.id.SchemaIdDeserializer",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.avro.AvroSchemaProvider",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.avro.AvroSchema",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.avro.AvroSchemaUtils",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.RegisterSchemaRequest",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.RegisterSchemaResponse",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.ConfigUpdateRequest",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.CompatibilityCheckResponse",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.requests.ModeUpdateRequest",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.Schema",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.SchemaReference",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.SchemaString",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.Config",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.ErrorMessage",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.Metadata",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.RuleSet",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.Rule",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.RuleKind",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.RuleMode",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.SchemaTags",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.ServerClusterId",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.client.rest.entities.SubjectVersion",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "io.confluent.kafka.schemaregistry.ParsedSchema",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "org.apache.kafka.clients.consumer.RangeAssignor",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.apache.kafka.clients.consumer.CooperativeStickyAssignor",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.apache.kafka.common.security.authenticator.DefaultLogin",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.apache.kafka.common.security.ssl.DefaultSslEngineFactory",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.apache.kafka.clients.producer.internals.DefaultPartitioner",
+    "allDeclaredConstructors": true,
+    "allPublicMethods": true
+  }
+]

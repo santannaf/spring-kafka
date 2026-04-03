@@ -1,0 +1,349 @@
+{
+  "groups": [
+    {
+      "name": "kafka.arch",
+      "type": "io.github.santannaf.kafka.configuration.properties.TunedKafkaProperties",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.TunedKafkaProperties"
+    },
+    {
+      "name": "kafka.arch.common",
+      "type": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.TunedKafkaProperties"
+    },
+    {
+      "name": "kafka.arch.producer",
+      "type": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.TunedKafkaProperties"
+    },
+    {
+      "name": "kafka.arch.consumer",
+      "type": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.TunedKafkaProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "kafka.arch.common.bootstrap-servers",
+      "type": "java.lang.String",
+      "description": "Endereco(s) do(s) broker(s) Kafka. Aceita lista separada por virgula para clusters multi-node.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": "localhost:9092"
+    },
+    {
+      "name": "kafka.arch.common.client-id",
+      "type": "java.lang.String",
+      "description": "Identificador do cliente Kafka. Usado para rastreamento em logs do broker e metricas.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.environment",
+      "type": "java.lang.String",
+      "description": "Ambiente de execucao (stg, qa, prod, dev). Usado no modo interno (certificate-type) para resolver o certificado correto.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": "dev"
+    },
+    {
+      "name": "kafka.arch.common.schema-registry",
+      "type": "java.lang.String",
+      "description": "URL do Confluent Schema Registry. Necessario para serializacao/deserializacao Avro.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": "localhost:8081"
+    },
+    {
+      "name": "kafka.arch.common.enable-connection-ssl-protocol-mode",
+      "type": "java.lang.Boolean",
+      "description": "Habilita conexao SSL/TLS com o broker. Quando true, exige configuracao via certificate-type (modo interno) ou ssl-trust-store-location/ssl-key-store-location (modo externo).",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.common.certificate-type",
+      "type": "java.lang.String",
+      "description": "Modo interno (companhia): tipo do certificado (ex: investimentos). A lib resolve automaticamente os arquivos .p12 do classpath por ambiente (stg, qa, prod). Mutuamente exclusivo com ssl-trust-store-location/ssl-key-store-location.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.ssl-trust-store-location",
+      "type": "java.lang.String",
+      "description": "Modo externo: caminho do truststore (PKCS12). Aceita path absoluto (/opt/x.p12), classpath (classpath:x.p12) ou nome simples. Mutuamente exclusivo com certificate-type.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.ssl-trust-store-password",
+      "type": "java.lang.String",
+      "description": "Senha do truststore. Obrigatorio quando SSL esta habilitado.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.ssl-key-store-location",
+      "type": "java.lang.String",
+      "description": "Modo externo: caminho do keystore (PKCS12). Aceita path absoluto (/opt/x.p12), classpath (classpath:x.p12) ou nome simples. Mutuamente exclusivo com certificate-type.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.ssl-key-store-password",
+      "type": "java.lang.String",
+      "description": "Senha do keystore. Obrigatorio quando SSL esta habilitado.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.reconnect-backoff",
+      "type": "java.lang.Integer",
+      "description": "Tempo inicial (ms) de espera antes de tentar reconectar ao broker apos falha.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": 50
+    },
+    {
+      "name": "kafka.arch.common.reconnect-backoff-max",
+      "type": "java.lang.Integer",
+      "description": "Tempo maximo (ms) de espera entre tentativas de reconexao. O backoff cresce exponencialmente ate esse limite.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": 2000
+    },
+    {
+      "name": "kafka.arch.common.events-concurrency",
+      "type": "java.lang.Integer",
+      "description": "Nivel de concorrencia para processamento de eventos.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": 2
+    },
+    {
+      "name": "kafka.arch.common.enable-another-connection",
+      "type": "java.lang.Boolean",
+      "description": "Habilita uma conexao secundaria com um cluster Kafka diferente.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.common.another-bootstrap-servers",
+      "type": "java.lang.String",
+      "description": "Endereco(s) do(s) broker(s) do cluster secundario. Obrigatorio quando enable-another-connection=true.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.common.another-schema-registry",
+      "type": "java.lang.String",
+      "description": "URL do Schema Registry do cluster secundario.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchCommonProperties"
+    },
+    {
+      "name": "kafka.arch.producer.ack-producer-config",
+      "type": "java.lang.String",
+      "description": "Nivel de confirmacao (acknowledgment) exigido do broker. 'all' garante que todas as replicas confirmem a escrita. Valores: 0, 1, all.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": "all"
+    },
+    {
+      "name": "kafka.arch.producer.max-producer-retry",
+      "type": "java.lang.Integer",
+      "description": "Numero maximo de tentativas de reenvio em caso de falha transitoria.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": 5
+    },
+    {
+      "name": "kafka.arch.producer.batch-size",
+      "type": "java.lang.Integer",
+      "description": "Tamanho maximo (bytes) do lote de mensagens antes do envio. Lotes maiores melhoram throughput, mas aumentam latencia.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": 20000
+    },
+    {
+      "name": "kafka.arch.producer.linger-ms",
+      "type": "java.lang.Integer",
+      "description": "Tempo (ms) que o producer espera antes de enviar um lote incompleto. Permite agrupar mais mensagens por lote.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": 10
+    },
+    {
+      "name": "kafka.arch.producer.enable-idempotence-config",
+      "type": "java.lang.Boolean",
+      "description": "Flag de configuracao de idempotencia. A biblioteca sempre habilita idempotencia internamente (enable.idempotence=true e max.in.flight.requests.per.connection=1) para garantir exactly-once semantics.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.producer.compress-type",
+      "type": "java.lang.String",
+      "description": "Algoritmo de compressao aplicado aos lotes de mensagens antes do envio ao broker. Compressao reduz uso de rede e armazenamento no broker, mas aumenta consumo de CPU no producer e consumer. Valores: none, gzip, snappy, lz4, zstd.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": "none"
+    },
+    {
+      "name": "kafka.arch.producer.type-partitioner",
+      "type": "java.lang.String",
+      "description": "Estrategia de particionamento. Quando definido como 'RoundRobinPartitioner', distribui mensagens uniformemente entre as particoes.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties"
+    },
+    {
+      "name": "kafka.arch.producer.transactional-id",
+      "type": "java.lang.String",
+      "description": "ID transacional para producao transacional. Quando definido, habilita transacoes Kafka (exactly-once).",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties"
+    },
+    {
+      "name": "kafka.arch.producer.enable-reactive-project",
+      "type": "java.lang.Boolean",
+      "description": "Flag para indicar uso com Reactor Kafka.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchProducerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.consumer.consumer-group-id",
+      "type": "java.lang.String",
+      "description": "Identificador do grupo de consumidores. Obrigatorio para consumers. Todos os consumers com o mesmo group ID compartilham a carga de particoes.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties"
+    },
+    {
+      "name": "kafka.arch.consumer.ack-consumer-config",
+      "type": "java.lang.String",
+      "description": "Modo de confirmacao do consumer. Determina quando o offset e commitado. Valores: record, batch, time, count, count_time, manual, manual_immediate.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": "manual"
+    },
+    {
+      "name": "kafka.arch.consumer.event-auto-offset-reset-config",
+      "type": "java.lang.String",
+      "description": "Comportamento quando nao ha offset commitado. Valores: earliest, latest, none.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": "latest"
+    },
+    {
+      "name": "kafka.arch.consumer.enable-auto-commit",
+      "type": "java.lang.Boolean",
+      "description": "Habilita commit automatico de offsets. Recomendado manter false para controle manual, evitando perda de mensagens.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.consumer.max-poll-records",
+      "type": "java.lang.Integer",
+      "description": "Numero maximo de registros retornados por chamada poll(). Valores menores reduzem o risco de rebalanceamento por timeout.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 500
+    },
+    {
+      "name": "kafka.arch.consumer.max-poll-interval-ms",
+      "type": "java.lang.Integer",
+      "description": "Tempo maximo (ms) entre chamadas poll(). Se excedido, o consumer e removido do grupo.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 300000
+    },
+    {
+      "name": "kafka.arch.consumer.fetch-min-bytes",
+      "type": "java.lang.Integer",
+      "description": "Minimo de bytes que o broker acumula antes de responder a um fetch. Valores maiores melhoram throughput; menores reduzem latencia.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 100000
+    },
+    {
+      "name": "kafka.arch.consumer.fetch-max-wait-bytes",
+      "type": "java.lang.Integer",
+      "description": "Tempo maximo (ms) que o broker espera para acumular fetch-min-bytes. Funciona como timeout do fetch.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 500
+    },
+    {
+      "name": "kafka.arch.consumer.session-timeout-ms",
+      "type": "java.lang.Integer",
+      "description": "Tempo (ms) que o broker espera sem heartbeat antes de considerar o consumer morto e iniciar rebalanceamento.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 20000
+    },
+    {
+      "name": "kafka.arch.consumer.heartbeat-interval-ms",
+      "type": "java.lang.Integer",
+      "description": "Intervalo (ms) entre heartbeats enviados ao coordinator. Deve ser menor que session-timeout-ms (recomendado: 1/3 do session timeout).",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 3000
+    },
+    {
+      "name": "kafka.arch.consumer.request-timeout-config-ms",
+      "type": "java.lang.Integer",
+      "description": "Tempo maximo (ms) que o client espera por uma resposta do broker.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 30000
+    },
+    {
+      "name": "kafka.arch.consumer.enable-avro-reader-config",
+      "type": "java.lang.Boolean",
+      "description": "Habilita o Specific Avro Reader. Quando true, desserializa para classes Avro geradas. Quando false, desserializa para GenericRecord.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "kafka.arch.consumer.enable-batch-listener",
+      "type": "java.lang.Boolean",
+      "description": "Habilita consumo em lote. Quando true, o listener recebe List<ConsumerRecord> ao inves de registros individuais.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.consumer.enable-async-ack",
+      "type": "java.lang.Boolean",
+      "description": "Habilita acknowledge assincrono. Permite que offsets sejam commitados fora de ordem, melhorando performance em cenarios especificos.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "kafka.arch.consumer.max-attempts-consumer-record",
+      "type": "java.lang.Integer",
+      "description": "Numero maximo de tentativas de processamento de um registro antes de encaminhar para tratamento de erro.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 3
+    },
+    {
+      "name": "kafka.arch.consumer.interval-retry-attempts-consumer-record",
+      "type": "java.lang.Integer",
+      "description": "Intervalo (ms) entre tentativas de reprocessamento de um registro que falhou.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": 10000
+    },
+    {
+      "name": "kafka.arch.consumer.enable-virtual-threads",
+      "type": "java.lang.Boolean",
+      "description": "Habilita virtual threads (Java 21+) para as threads do listener container. Reduz overhead de criacao de threads do SO e melhora performance em cenarios com I/O.",
+      "sourceType": "io.github.santannaf.kafka.configuration.properties.KafkaArchConsumerProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [
+    {
+      "name": "kafka.arch.producer.ack-producer-config",
+      "values": [
+        { "value": "0", "description": "Nenhuma confirmacao do broker." },
+        { "value": "1", "description": "Apenas o lider confirma a escrita." },
+        { "value": "all", "description": "Todas as replicas confirmam a escrita (maior durabilidade)." }
+      ]
+    },
+    {
+      "name": "kafka.arch.producer.compress-type",
+      "values": [
+        { "value": "none", "description": "Sem compressao. Mensagens sao enviadas sem nenhum algoritmo de compressao aplicado." },
+        { "value": "gzip", "description": "Compressao GZIP. Alta taxa de compressao, porem maior uso de CPU. Recomendado quando largura de banda e limitada." },
+        { "value": "snappy", "description": "Compressao Snappy. Equilibrio entre taxa de compressao e velocidade. Bom para cenarios de alto throughput." },
+        { "value": "lz4", "description": "Compressao LZ4. Muito rapida com taxa de compressao moderada. Ideal para cenarios sensiveis a latencia." },
+        { "value": "zstd", "description": "Compressao Zstandard. Melhor taxa de compressao com performance competitiva. Recomendado para otimizar armazenamento no broker." }
+      ]
+    },
+    {
+      "name": "kafka.arch.consumer.ack-consumer-config",
+      "values": [
+        { "value": "record", "description": "Commit apos processar cada registro individualmente." },
+        { "value": "batch", "description": "Commit apos processar todos os registros retornados pelo poll()." },
+        { "value": "time", "description": "Commit em intervalos de tempo definidos." },
+        { "value": "count", "description": "Commit apos processar um numero definido de registros." },
+        { "value": "count_time", "description": "Commit quando qualquer condicao (count ou time) for atingida primeiro." },
+        { "value": "manual", "description": "Offset commitado manualmente via Acknowledgment.acknowledge()." },
+        { "value": "manual_immediate", "description": "Offset commitado imediatamente quando acknowledge() e chamado." }
+      ]
+    },
+    {
+      "name": "kafka.arch.consumer.event-auto-offset-reset-config",
+      "values": [
+        { "value": "earliest", "description": "Le desde o inicio do topico." },
+        { "value": "latest", "description": "Le apenas novas mensagens." },
+        { "value": "none", "description": "Lanca excecao se nao houver offset commitado." }
+      ]
+    }
+  ]
+}

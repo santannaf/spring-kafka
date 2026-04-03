@@ -1,0 +1,107 @@
+name: 'env-kafka'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    platform: linux/amd64
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    platform: linux/amd64
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9093:9093"
+    volumes:
+      - ./certs/kafka.keystore.p12:/etc/kafka/secrets/kafka.keystore.p12:ro
+      - ./certs/kafka.truststore.p12:/etc/kafka/secrets/kafka.truststore.p12:ro
+      - ./certs/ssl_credentials:/etc/kafka/secrets/ssl_credentials:ro
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092,SSL://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,SSL:SSL
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "false"
+      # O listener PLAINTEXT (inter-broker e host) precisa de um super user
+      # para operar sem ACLs. O broker se conecta internamente como "ANONYMOUS".
+      KAFKA_SUPER_USERS: "User:ANONYMOUS"
+      CONFLUENT_METRICS_ENABLE: 'true'
+      # SSL config (mTLS — broker exige certificado do cliente)
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore.p12
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: ssl_credentials
+      KAFKA_SSL_KEY_CREDENTIALS: ssl_credentials
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore.p12
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: ssl_credentials
+      KAFKA_SSL_CLIENT_AUTH: required
+      KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ""
+      # Extrai apenas o CN do DN completo do certificado para usar como principal.
+      # Sem isso, o principal seria "CN=demo-kafka-skill,OU=App,O=MyOrg,L=City,ST=State,C=BR"
+      # em vez de "CN=demo-kafka-skill".
+      KAFKA_SSL_PRINCIPAL_MAPPING_RULES: "RULE:^CN=([^,]+).*$$/$$1/,DEFAULT"
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.4.0
+    platform: linux/amd64
+    container_name: schema-registry
+    ports:
+      - "8081:8081"
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka:9092'
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+
+  control-center:
+    image: confluentinc/cp-enterprise-control-center:6.0.1
+    platform: linux/amd64
+    hostname: control-center
+    container_name: control-center
+    depends_on:
+      - kafka
+      - schema-registry
+    ports:
+      - "9021:9021"
+    environment:
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'kafka:9092'
+      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
+      CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 1
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
+      CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 1
+      CONTROL_CENTER_MODE_ENABLE: 'all'
+      CONTROL_CENTER_CONSUMERS_VIEW_ENABLE: 'true'
+      CONTROL_CENTER_STREAMS_CACHE_MAX_BYTES_BUFFERING: 104857600
+      PORT: 9021
+    command:
+      - bash
+      - -c
+      - |
+        echo "Waiting for Kafka brokers to start and necessary topics to be available"
+        sleep 60
+        /etc/confluent/docker/run
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"

@@ -1,0 +1,6 @@
+# CI/CD workflows - only the owner can approve changes
+.github/workflows/ @santannaf
+
+# POM files - only the owner can approve changes
+pom.xml @santannaf
+kafka/pom.xml @santannaf
