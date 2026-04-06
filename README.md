@@ -11,6 +11,7 @@ Eliminates Kafka configuration boilerplate in Spring Boot projects by delivering
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [Production-Ready Defaults](#production-ready-defaults)
 - [Architecture](#architecture)
 - [Properties Reference](#properties-reference)
   - [Common Properties](#common-properties-kafkaarchcommon)
@@ -149,6 +150,36 @@ public class MyConsumer {
   }
 }
 ```
+
+---
+
+## Production-Ready Defaults
+
+This library is designed with **production-grade defaults out of the box**. The fundamental properties that every Kafka application needs — such as acknowledgment strategy, retry policy, offset management, and serialization — are already pre-configured with safe, reliable values.
+
+### What the library handles for you
+
+| Concern | Property | Default | Why it matters |
+|---|---|---|---|
+| **Delivery guarantee** | `ack-producer-config` | `all` | All replicas must confirm the write — highest durability, no silent message loss |
+| **Retry on failure** | `max-producer-retry` | `5` | Transient broker errors are retried automatically |
+| **Offset control** | `enable-auto-commit` | `false` | Offsets are committed manually, preventing message loss or unintended reprocessing |
+| **ACK mode** | `ack-consumer-config` | `manual` | Full control over when offsets are committed |
+| **Serialization** | Avro + Schema Registry | auto-configured | Producer uses `KafkaAvroSerializer`, consumer uses `SafeKafkaAvroDeserializer` — no manual serializer setup needed |
+| **Deserialization safety** | `SafeKafkaAvroDeserializer` | auto-configured | Corrupted messages are logged and skipped instead of blocking the entire topic |
+| **Reconnection** | `reconnect-backoff` / `reconnect-backoff-max` | `50ms` / `2000ms` | Exponential backoff on broker disconnections |
+
+### Minimal configuration required
+
+Because of these defaults, a client project only needs to provide **three properties** to have a fully functional, production-safe setup:
+
+```properties
+kafka.arch.common.bootstrap-servers=broker:9092
+kafka.arch.common.schema-registry=http://schema-registry:8081
+kafka.arch.consumer.consumer-group-id=my-group
+```
+
+Everything else is already tuned for production use. Override only what your specific use case requires.
 
 ---
 
